@@ -1,0 +1,39 @@
+﻿@model OnlineCourseMVC.Models.Candidate
+
+<h2>Add / Edit Candidate</h2>
+
+@* Show validation messages *@
+<div style="color:red;">
+    @Html.ValidationSummary(true)
+</div>
+
+<form asp-action="Save" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label>Full Name</label><br />
+    <input asp-for="FullName" /><br /><br />
+
+    <label>Course</label><br />
+    <select asp-for="Course">
+        <option>ASP.NET</option>
+        <option>Java</option>
+        <option>C</option>
+        <option>C++</option>
+        <option>SQL Server</option>
+        <option>Python</option>
+    </select><br /><br />
+
+    <label>Date of Birth</label><br />
+    <input asp-for="DOB" type="date" value="@(Model.DOB.HasValue? Model.DOB.Value.ToString("yyyy-MM-dd") : "")" />
+    <br /><br />
+
+    <label>Date of Joining</label><br />
+    <input asp-for="DOJ" type="date" value="@(Model.DOJ.HasValue? Model.DOJ.Value.ToString("yyyy-MM-dd") : "")" />
+    <br /><br />
+
+
+    <label>Status</label>
+    <input asp-for="IsActive" type="checkbox" /><br /><br />
+
+    <button type="submit">Save</button>
+</form>

@@ -1,0 +1,51 @@
+﻿@model List<OnlineCourseMVC.Models.Candidate>
+
+<h2>Registered Candidates</h2>
+@if (TempData["msg"] != null)
+{
+    <div style="color: green; font-weight: bold;">
+        @TempData["msg"]
+    </div>
+}
+
+<a asp-action="AddEdit">Add New Candidate</a>
+<br />
+<br />
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Full Name</th>
+        <th>DOB</th>
+        <th>Date of Joining</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.FullName</td>
+            <td>@(c.DOB.HasValue? c.DOB.Value.ToShortDateString() : "")</td>
+            <td>@(c.DOJ.HasValue? c.DOJ.Value.ToShortDateString() : "")</td>
+            <td>@(c.IsActive ? "Active" : "Inactive")</td>
+
+            <!-- Edit Button -->
+            <td>
+                <form asp-action="AddEdit" method="get">
+                    <input type="hidden" name="id" value="@c.Id" />
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+
+            <!-- Delete Button -->
+            <td>
+                <form asp-action="Delete" method="post"
+                      onsubmit="return confirm('Are you sure you want to delete this record?');">
+                    <input type="hidden" name="id" value="@c.Id" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
